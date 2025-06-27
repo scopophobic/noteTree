@@ -4,7 +4,7 @@ import { persist } from "zustand/middleware";
 // Uses Zustand with persist (so data survives page reloads)
 
 
-type TreeNode = {
+export type TreeNode = {
     id: string;
     title: string;
     content: string;
