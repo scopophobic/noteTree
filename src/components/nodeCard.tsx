@@ -1,9 +1,10 @@
 "use client";
 
 
+
 // libs 
 import { useState } from "react";
-import { useTreeStore } from "@/hooks/useTree";
+import { useTreeStore, TreeNode } from "@/hooks/useTree";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -15,7 +16,7 @@ type Props = {
     id: string;
     title: string;
     content: string;
-    child: any[];
+    child: TreeNode[];
   };
 };
 
