@@ -17,6 +17,7 @@ type TreeState = {
     setTree: (tree: TreeNode) => void
     addChild: (parentId: string, child: TreeNode) => void;
     updateNode: (id: string, data: Partial<TreeNode>) => void
+    deleteNode: (id: string) => void
 }
 
 
@@ -52,6 +53,15 @@ function generateNode(): TreeNode {
       child: tree.child.map(child => addChildRecursive(child, parentId)),
     }
   }
+// for deleting node 
+  function deleteNodeRecursive(tree: TreeNode, idToDelete: string): TreeNode {
+    return {
+      ...tree,
+      child: tree.child
+        .filter((child) => child.id !== idToDelete)
+        .map((child) => deleteNodeRecursive(child, idToDelete)),
+    }
+  }
   
 // MAIN FUCNTION FOR THE TREE STORE
   export const useTreeStore = create<TreeState>()(
@@ -72,6 +82,12 @@ function generateNode(): TreeNode {
           const updated = updateNodeRecursive(get().tree, id, data)
           set({ tree: updated })
         },
+        deleteNode: (id) => {
+            const current = get().tree
+            if (id === 'root') return // prevent deleting root
+            const updated = deleteNodeRecursive(current, id)
+            set({ tree: updated })
+          },
       }),
       { name: 'tree-note-data' }
     )
