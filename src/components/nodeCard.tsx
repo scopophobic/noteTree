@@ -1,14 +1,13 @@
 "use client";
 
-
-
-// libs 
+// import { useTreeStore } from "@/hooks/useTree";
+// libs
 import { useState } from "react";
-import { useTreeStore, TreeNode } from "@/hooks/useTree";
+// const { tree, focusedNodeId, setFocusedNode } = useTreeStore();
+import { useTreeStore } from "@/hooks/useTree";
+import { TreeNode } from "@/hooks/useTree";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-
-
 
 type Props = {
   nodeId: string;
@@ -21,64 +20,66 @@ type Props = {
 };
 
 export default function NodeCard({ node, nodeId }: Props) {
+  const { setFocusedNode } = useTreeStore();
+  const { focusedNodeId } = useTreeStore();
   const { addChild, updateNode, deleteNode } = useTreeStore();
 
   const [isEditing, setIsEditing] = useState(false);
 
   return (
     // <div className="border rounded p-4 m-2 bg-white shadow-md min-w-[300px]">
-    <div className="flex flex-col items-start">
-      <div className="border rounded p-4 bg-white shadow-md w-fit min-w-[250px]">
-        {/* Node Title */}
+    <div className="flex flex-col items-center">
+      {/* Actual Node Box */}
+      <div
+        className={`transition-all duration-300 flex flex-col items-start border border-gray-300 rounded-xl p-4 shadow-md bg-white ${
+          focusedNodeId === nodeId ? "scale-105 z-10" : "scale-100"
+        } max-w-sm w-fit`}
+      >
+        {/* TITLE */}
         <input
-          className="text-xl font-semibold mb-2 w-full outline-none border-b"
+          className="text-lg font-bold mb-2 outline-none border-b w-full max-w-[250px] truncate"
           value={node.title}
           onChange={(e) => updateNode(nodeId, { title: e.target.value })}
         />
 
-        {/* Markdown Content Area */}
+        {/* CONTENT */}
         {isEditing ? (
           <>
             <textarea
-              className="w-full h-32 p-2 bg-gray-50 border mt-2 text-sm rounded"
+              className="w-full h-28 p-2 bg-gray-50 border mt-2 text-sm rounded"
               value={node.content}
-              onChange={(e) => updateNode(nodeId, { content: e.target.value })}
-              onBlur={() => setIsEditing(false)} // ✅ auto-save and switch back
               autoFocus
+              onChange={(e) => updateNode(nodeId, { content: e.target.value })}
+              onBlur={() => setIsEditing(false)} // ✅ auto-save on blur
             />
             {/* <div className="flex justify-end mt-2">
-              <button
-                className="text-xs bg-blue-500 text-white px-3 py-1 rounded"
-                onClick={() => setIsEditing(false)}
-              >
-                Save
-              </button>
-            </div> */}
+          <button
+            className="text-xs bg-blue-500 text-white px-3 py-1 rounded"
+            onClick={() => setIsEditing(false)}
+          >
+            Save
+          </button>
+        </div> */}
           </>
         ) : (
-          <>
-            <div
-              className="prose prose-sm max-w-none p-2 bg-gray-50 rounded cursor-pointer"
-              onClick={() => setIsEditing(true)}
-            >
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {node.content || "*Click to add content...*"}
-              </ReactMarkdown>
-            </div>
-          </>
+          <div
+            className="prose prose-sm max-w-none p-2 bg-gray-50 rounded cursor-pointer"
+            onClick={() => setIsEditing(true)}
+          >
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {node.content || "*Click to add content...*"}
+            </ReactMarkdown>
+          </div>
         )}
 
-        {/* Actions */}
-        <div className="mt-3 flex gap-3">
-          <button
-            className="text-xs text-blue-600"
-            onClick={() => addChild(nodeId, node)}
-          >
+        {/* ACTIONS */}
+        <div className="mt-3 flex gap-3 text-xs">
+          <button className="text-blue-600" onClick={() => addChild(nodeId)}>
             + Add Child
           </button>
           {nodeId !== "root" && (
             <button
-              className="text-xs text-red-600"
+              className="text-red-600"
               onClick={() => {
                 if (confirm("Delete this node and its children?")) {
                   deleteNode(nodeId);
@@ -88,24 +89,20 @@ export default function NodeCard({ node, nodeId }: Props) {
               🗑 Delete
             </button>
           )}
-          {/* Sibling add and delete will come next */}
         </div>
+      </div>
 
-        {/* Render child recursively */}
-        {/* <div className="ml-4 border-l pl-4 mt-2">
-        {node.child.map((child) => (
-          <NodeCard key={child.id} nodeId={child.id} node={child} />
-        ))}
-      </div> */}
-        {/* Render children in a horizontal row */}
-        {node.child.length > 0 && (
-          <div className="mt-4 flex gap-4 flex-wrap justify-start pl-2 border-l-2 border-gray-300">
+      {/* CHILDREN */}
+      {node.child.length > 0 && (
+        <div className="mt-6 flex flex-col items-center">
+          <div className="w-1 h-4 bg-gray-400" />
+          <div className="flex flex-wrap gap-6 justify-center mt-2">
             {node.child.map((child) => (
               <NodeCard key={child.id} nodeId={child.id} node={child} />
             ))}
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
