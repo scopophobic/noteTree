@@ -95,22 +95,22 @@ export default function NodeCard({ node, nodeId }: Props) {
       {/* CHILDREN */}
       {node.child.length > 0 && (
         <div className="flex flex-col items-center mt-12">
-        {/* Connector line from parent to children */}
-        <div className="w-1 h-6 bg-gray-400" />
-    
-        {/* Row of children */}
-        <div className="flex gap-12 mt-4">
-          {node.child.map((child) => (
-            <div className="flex flex-col items-center">
-              <NodeCard key={child.id} nodeId={child.id} node={child} />
-              {/* Optional: connector to grandchildren */}
-              {child.child.length > 0 && (
-                <div className="w-1 h-6 bg-gray-300 mt-2" />
-              )}
-            </div>
-          ))}
+          {/* Connector line from parent to children */}
+          <div className="w-1 h-6 bg-gray-400" />
+
+          {/* Row of children */}
+          <div className="flex gap-12 mt-4">
+            {node.child.map((child) => (
+              <div key={child.id} className="flex flex-col items-center">
+                <NodeCard nodeId={child.id} node={child} />
+                {/* Optional: connector to grandchildren */}
+                {child.child.length > 0 && (
+                  <div className="w-1 h-6 bg-gray-300 mt-2" />
+                )}
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
       )}
     </div>
   );
