@@ -20,7 +20,7 @@ type Props = {
 };
 
 export default function NodeCard({ node, nodeId }: Props) {
-  const { setFocusedNode } = useTreeStore();
+  // const { setFocusedNode } = useTreeStore();
   const { focusedNodeId } = useTreeStore();
   const { addChild, updateNode, deleteNode } = useTreeStore();
 
