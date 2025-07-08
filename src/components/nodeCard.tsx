@@ -176,7 +176,7 @@ export default function NodeCard({ node, nodeId }: Props) {
             {/* Horizontal line behind children */}
             <div className="absolute top-0 left-0 right-0 h-1 bg-gray-400" />
 
-            {node.child.map((child, index) => (
+            {node.child.map((child) => (
               <div
                 key={child.id}
                 className="flex flex-col items-center relative"
