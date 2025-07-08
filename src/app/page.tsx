@@ -16,8 +16,8 @@ export default function Home() {
   // const nodeToRender = focusedNodeId ? tree[focusedNodeId] : tree["root"];
 
   return (
-    <main className="w-screen h-screen overflow-auto bg-gray-50">
-      <div className="min-w-[1500px] min-h-[1000px] p-10">
+    <main className="h-screen w-screen overflow-auto bg-neutral-100">
+      <div className="min-h-[3000px] min-w-[3000px] p-40 relative">
         {focusedNodeId && (
           <button
             className="mb-4 text-blue-600 underline text-sm"

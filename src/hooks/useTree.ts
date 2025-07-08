@@ -21,6 +21,9 @@ type TreeState = {
   focusedNodeId: string | null;
   setFocusedNode: (id: string | null) => void;
 
+  editingNodeId: string | null;
+  setEditingNodeId: (id: string | null) => void;
+
   addChild: (parentId: string) => void;
   updateNode: (id: string, data: Partial<TreeNode>) => void;
   deleteNode: (id: string) => void;
@@ -83,9 +86,11 @@ export const useTreeStore = create<TreeState>()(
         child: [],
       },
       focusedNodeId: null,
+      editingNodeId: null,
 
       setTree: (tree) => set({ tree }),
       setFocusedNode: (id) => set({ focusedNodeId: id }),
+      setEditingNodeId: (id) => set({ editingNodeId: id }),
 
       addChild: (parentId) => {
         const updated = addChildRecursive(get().tree, parentId);
