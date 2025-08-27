@@ -184,13 +184,19 @@ console.log('Hello world');
         drag
         dragMomentum={false}
         dragElastic={0.1}
+        dragConstraints={{ left: -500, right: 500, top: -300, bottom: 300 }}
         className={`transition-all duration-300 flex flex-col items-start border-2 rounded-xl p-4 shadow-lg bg-white/95 backdrop-blur-sm hover:shadow-xl ${
           focusedNodeId === nodeId 
-            ? "scale-110 z-10 border-blue-400 shadow-blue-200/50" 
+            ? "scale-110 z-20 border-blue-400 shadow-blue-200/50" 
             : "scale-100 border-gray-200 hover:border-gray-300"
         } max-w-sm w-fit cursor-move group`}
-        whileHover={{ scale: 1.02 }}
-        whileDrag={{ scale: 1.05, rotate: 2 }}
+        whileHover={{ scale: 1.02, zIndex: 15 }}
+        whileDrag={{ scale: 1.05, rotate: 2, zIndex: 30 }}
+        animate={{
+          boxShadow: focusedNodeId === nodeId 
+            ? "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" 
+            : "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
+        }}
       >
         {/* TITLE with focus button */}
         <div className="flex items-center justify-between w-full mb-2">
@@ -274,27 +280,131 @@ console.log('Hello world');
 
       {/* CHILDREN */}
       {node.child.length > 0 && (
-        <div className="flex flex-col items-center mt-12 relative">
-          {/* Vertical line from parent to children */}
-          <div className="w-0.5 h-12 bg-gradient-to-b from-blue-300 to-blue-500 mb-4" />
+        <div className="flex flex-col items-center mt-20 relative">
+          {/* Children container with Figma Jam style connections */}
+          <div className="flex gap-24 justify-center relative min-w-max">
+            {/* Figma Jam style curved connections */}
+            <motion.svg 
+              className="absolute pointer-events-none z-0"
+              style={{ 
+                left: '50%',
+                top: '-80px',
+                transform: 'translateX(-50%)',
+                width: `${Math.max(300, node.child.length * 96)}px`,
+                height: '120px'
+              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <defs>
+                {/* Elegant gradient for connections */}
+                <linearGradient id={`figma-gradient-${nodeId}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#6366f1" stopOpacity="0.8" />
+                  <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.6" />
+                  <stop offset="100%" stopColor="#a855f7" stopOpacity="0.4" />
+                </linearGradient>
+                
+                {/* Subtle shadow effect */}
+                <filter id={`figma-shadow-${nodeId}`} x="-50%" y="-50%" width="200%" height="200%">
+                  <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#6366f1" floodOpacity="0.2"/>
+                </filter>
+              </defs>
+              
+              {/* Individual curved connections for each child */}
+              {node.child.map((_, index) => {
+                const totalChildren = node.child.length;
+                const centerX = Math.max(150, totalChildren * 48);
+                const childX = centerX - ((totalChildren - 1) * 48) + (index * 96);
+                
+                // Figma Jam style curved path
+                const startX = centerX;
+                const startY = 80;
+                const endX = childX;
+                const endY = 120;
+                
+                // Control points for smooth bezier curve
+                const controlY = startY + 30;
+                
+                return (
+                  <motion.path
+                    key={index}
+                    d={`M ${startX} ${startY} 
+                        C ${startX} ${controlY}, 
+                          ${endX} ${controlY}, 
+                          ${endX} ${endY}`}
+                    stroke={`url(#figma-gradient-${nodeId})`}
+                    strokeWidth="2"
+                    fill="none"
+                    strokeLinecap="round"
+                    filter={`url(#figma-shadow-${nodeId})`}
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 1 }}
+                    transition={{ 
+                      duration: 0.8, 
+                      delay: 0.3 + (index * 0.1),
+                      ease: "easeOut"
+                    }}
+                  />
+                );
+              })}
+              
+              {/* Parent connection point */}
+              <motion.circle
+                cx={Math.max(150, node.child.length * 48)}
+                cy="80"
+                r="3"
+                fill="#6366f1"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ 
+                  duration: 0.4, 
+                  delay: 0.2,
+                  type: "spring",
+                  stiffness: 300
+                }}
+              />
+              
+              {/* Child connection points */}
+              {node.child.map((_, index) => {
+                const totalChildren = node.child.length;
+                const centerX = Math.max(150, totalChildren * 48);
+                const childX = centerX - ((totalChildren - 1) * 48) + (index * 96);
+                
+                return (
+                  <motion.circle
+                    key={index}
+                    cx={childX}
+                    cy="120"
+                    r="2.5"
+                    fill="#a855f7"
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ 
+                      duration: 0.4, 
+                      delay: 0.5 + (index * 0.1),
+                      type: "spring",
+                      stiffness: 300
+                    }}
+                  />
+                );
+              })}
+            </motion.svg>
 
-          {/* Children container with horizontal line */}
-          <div className="flex flex-wrap gap-12 justify-center relative max-w-6xl">
-            {/* Horizontal line behind children */}
-            {node.child.length > 1 && (
-              <div className="absolute top-0 left-1/4 right-1/4 h-0.5 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-300" />
-            )}
-
+            {/* Children nodes */}
             {node.child.map((child, index) => (
               <motion.div
                 key={child.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="flex flex-col items-center relative"
+                initial={{ opacity: 0, y: 50, scale: 0.8 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ 
+                  delay: 0.6 + (index * 0.1), 
+                  type: "spring", 
+                  stiffness: 200, 
+                  damping: 20 
+                }}
+                className="relative z-10"
               >
-                {/* Vertical line from horizontal bar to child */}
-                <div className="w-0.5 h-8 bg-gradient-to-b from-blue-500 to-blue-300 mb-4" />
                 <NodeCard nodeId={child.id} node={child} />
               </motion.div>
             ))}
