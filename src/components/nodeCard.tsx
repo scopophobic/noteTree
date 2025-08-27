@@ -221,15 +221,15 @@ console.log('Hello world');
               remarkPlugins={[remarkGfm]}
               components={{
                 // Limit rendering for compact view
-                h1: ({...props}) => <div className="font-bold text-sm text-gray-900" {...props} />,
-                h2: ({...props}) => <div className="font-semibold text-sm text-gray-800" {...props} />,
-                h3: ({...props}) => <div className="font-medium text-sm text-gray-700" {...props} />,
-                p: ({...props}) => <div className="text-xs text-gray-600 mb-1" {...props} />,
-                ul: ({...props}) => <ul className="text-xs text-gray-600 ml-3 mb-1" {...props} />,
-                ol: ({...props}) => <ol className="text-xs text-gray-600 ml-3 mb-1" {...props} />,
-                blockquote: ({...props}) => <div className="border-l-2 border-gray-300 pl-2 text-xs italic text-gray-500" {...props} />,
-                code: ({...props}) => <code className="bg-gray-200 px-1 rounded text-xs font-mono" {...props} />,
-                pre: ({...props}) => <pre className="bg-gray-200 p-2 rounded text-xs overflow-hidden" {...props} />
+                h1: ({children}) => <div className="font-bold text-sm text-gray-900">{children}</div>,
+                h2: ({children}) => <div className="font-semibold text-sm text-gray-800">{children}</div>,
+                h3: ({children}) => <div className="font-medium text-sm text-gray-700">{children}</div>,
+                p: ({children}) => <div className="text-xs text-gray-600 mb-1">{children}</div>,
+                ul: ({children}) => <ul className="text-xs text-gray-600 ml-3 mb-1">{children}</ul>,
+                ol: ({children}) => <ol className="text-xs text-gray-600 ml-3 mb-1">{children}</ol>,
+                blockquote: ({children}) => <div className="border-l-2 border-gray-300 pl-2 text-xs italic text-gray-500">{children}</div>,
+                code: ({children}) => <code className="bg-gray-200 px-1 rounded text-xs font-mono">{children}</code>,
+                pre: ({children}) => <pre className="bg-gray-200 p-2 rounded text-xs overflow-hidden">{children}</pre>
               }}
             >
               {node.content?.slice(0, 200) + (node.content?.length > 200 ? "..." : "") || "*Click to add content...*"}

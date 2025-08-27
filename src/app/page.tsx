@@ -171,7 +171,9 @@ export default function Home() {
           }}
         >
           <div className="p-20">
-            <NodeCard nodeId={nodeToRender.id} node={nodeToRender} />
+            {nodeToRender && (
+              <NodeCard nodeId={nodeToRender.id} node={nodeToRender} />
+            )}
           </div>
         </div>
       </div>
