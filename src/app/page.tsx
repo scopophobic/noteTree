@@ -15,27 +15,7 @@ export default function Home() {
   const [panStart, setPanStart] = useState({ x: 0, y: 0 });
   const [panOffset, setPanOffset] = useState({ x: 0, y: 0 });
 
-  const currentProject = getCurrentProject();
-  const tree = currentProject?.tree;
-  
-  const nodeToRender = focusedNodeId && tree
-    ? findNodeById(tree, focusedNodeId) ?? tree
-    : tree;
-
-  if (!currentProject || !tree) {
-    return (
-      <main className="h-screen w-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50">
-        <div className="text-center">
-          <div className="text-6xl mb-4">📁</div>
-          <div className="text-xl text-gray-600 mb-2">No project selected</div>
-          <div className="text-gray-500">Create or select a project to get started</div>
-        </div>
-        <ProjectManager />
-      </main>
-    );
-  }
-
-  // Handle zoom with mouse wheel
+  // Handle zoom with mouse wheel - moved before early return
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       if (e.ctrlKey || e.metaKey) {
@@ -51,6 +31,25 @@ export default function Home() {
       return () => canvas.removeEventListener('wheel', handleWheel);
     }
   }, []);
+
+  // Center the content initially - moved before early return
+  useEffect(() => {
+    if (canvasRef.current) {
+      const canvas = canvasRef.current;
+      canvas.scrollTo({
+        left: (canvas.scrollWidth - canvas.clientWidth) / 2,
+        top: (canvas.scrollHeight - canvas.clientHeight) / 2,
+        behavior: 'smooth'
+      });
+    }
+  }, []);
+
+  const currentProject = getCurrentProject();
+  const tree = currentProject?.tree;
+  
+  const nodeToRender = focusedNodeId && tree
+    ? findNodeById(tree, focusedNodeId) ?? tree
+    : tree;
 
   // Handle panning
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -74,17 +73,18 @@ export default function Home() {
     setIsPanning(false);
   };
 
-  // Center the content initially
-  useEffect(() => {
-    if (canvasRef.current) {
-      const canvas = canvasRef.current;
-      canvas.scrollTo({
-        left: (canvas.scrollWidth - canvas.clientWidth) / 2,
-        top: (canvas.scrollHeight - canvas.clientHeight) / 2,
-        behavior: 'smooth'
-      });
-    }
-  }, []);
+  if (!currentProject || !tree) {
+    return (
+      <main className="h-screen w-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50">
+        <div className="text-center">
+          <div className="text-6xl mb-4">📁</div>
+          <div className="text-xl text-gray-600 mb-2">No project selected</div>
+          <div className="text-gray-500">Create or select a project to get started</div>
+        </div>
+        <ProjectManager />
+      </main>
+    );
+  }
 
   return (
     <main className="h-screen w-screen overflow-hidden bg-gradient-to-br from-slate-50 to-blue-50 relative">

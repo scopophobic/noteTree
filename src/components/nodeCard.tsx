@@ -26,7 +26,6 @@ export default function NodeCard({ node, nodeId }: Props) {
   const isEditingFullscreen = editingNodeId === nodeId;
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const [isEditing, setIsEditing] = useState(false);
   const [isPreviewMode, setIsPreviewMode] = useState(true);
 
   useEffect(() => {
@@ -37,7 +36,7 @@ export default function NodeCard({ node, nodeId }: Props) {
     };
     window.addEventListener("keydown", handleEscape);
     return () => window.removeEventListener("keydown", handleEscape);
-  }, []);
+  }, [setEditingNodeId]);
 
   return (
     // <div className="border rounded p-4 m-2 bg-white shadow-md min-w-[300px]">

@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { useTreeStore } from "@/hooks/useTree";
-import { findNodeById } from "@/app/libs/nodeFindId";
 import { TreeNode } from "@/hooks/useTree";
 
 function getAllNodes(node: TreeNode): TreeNode[] {
@@ -116,7 +115,7 @@ export default function SearchNavigator() {
             ) : (
               <div className="p-8 text-center text-gray-500">
                 <div className="text-4xl mb-2">🔍</div>
-                <div>No notes found matching "{searchTerm}"</div>
+                <div>No notes found matching &quot;{searchTerm}&quot;</div>
               </div>
             )
           ) : (
