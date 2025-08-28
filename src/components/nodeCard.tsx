@@ -106,13 +106,13 @@ export default function NodeCard({ node, nodeId }: Props) {
                       Supports GitHub Flavored Markdown
                     </div>
                   </div>
-                  <textarea
+                <textarea
                     ref={textareaRef}
                     className="w-full h-full p-4 border border-gray-200 rounded-md resize-none outline-none focus:border-blue-400 transition-colors text-gray-700 font-mono text-sm leading-relaxed"
-                    value={node.content}
-                    onChange={(e) =>
-                      updateNode(nodeId, { content: e.target.value })
-                    }
+                  value={node.content}
+                  onChange={(e) =>
+                    updateNode(nodeId, { content: e.target.value })
+                  }
                     placeholder="Write your markdown content here...
 
 # Heading 1
@@ -132,8 +132,8 @@ export default function NodeCard({ node, nodeId }: Props) {
 console.log('Hello world');
 ```"
                     spellCheck={false}
-                  />
-                </div>
+                />
+              </div>
 
                 {/* Preview */}
                 {isPreviewMode && (
@@ -166,12 +166,12 @@ console.log('Hello world');
                   >
                     Cancel
                   </button>
-                  <button
+                <button
                     className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-                    onClick={() => setEditingNodeId(null)}
-                  >
-                    Done
-                  </button>
+                  onClick={() => setEditingNodeId(null)}
+                >
+                  Done
+                </button>
                 </div>
               </div>
             </div>
@@ -200,28 +200,28 @@ console.log('Hello world');
       >
         {/* TITLE with focus button */}
         <div className="flex items-center justify-between w-full mb-2">
-          <input
+        <input
             className="text-lg font-bold outline-none border-b border-transparent focus:border-blue-400 flex-1 min-w-0 truncate bg-transparent"
-            value={node.title}
-            onChange={(e) => updateNode(nodeId, { title: e.target.value })}
+          value={node.title}
+          onChange={(e) => updateNode(nodeId, { title: e.target.value })}
             placeholder="Untitled Note"
           />
           {node.child.length > 0 && (
-            <button
+          <button
               onClick={() => setFocusedNode(nodeId)}
               className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-blue-600 hover:text-blue-800 p-1 rounded"
               title="Focus on this node"
-            >
+          >
               🔍
-            </button>
+          </button>
           )}
         </div>
 
         {/* CONTENT with better preview */}
         <div
           className="w-full max-w-[280px] min-h-[80px] p-3 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg cursor-pointer hover:from-blue-50 hover:to-blue-100 transition-all duration-200 border border-gray-100"
-          onClick={() => setEditingNodeId(nodeId)}
-        >
+            onClick={() => setEditingNodeId(nodeId)}
+          >
           <div className="prose prose-xs max-w-none text-gray-700">
             <ReactMarkdown 
               remarkPlugins={[remarkGfm]}
@@ -255,19 +255,19 @@ console.log('Hello world');
             >
               <span>+</span>
               <span>Child</span>
-            </button>
-            {nodeId !== "root" && (
-              <button
+          </button>
+          {nodeId !== "root" && (
+            <button
                 className="flex items-center gap-1 text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full hover:bg-red-200 transition-colors"
-                onClick={() => {
-                  if (confirm("Delete this node and its children?")) {
-                    deleteNode(nodeId);
-                  }
-                }}
-              >
+              onClick={() => {
+                if (confirm("Delete this node and its children?")) {
+                  deleteNode(nodeId);
+                }
+              }}
+            >
                 <span>🗑</span>
                 <span>Delete</span>
-              </button>
+            </button>
             )}
           </div>
           {node.child.length > 0 && (
@@ -278,139 +278,31 @@ console.log('Hello world');
         </div>
       </motion.div>
 
-      {/* CHILDREN */}
-      {node.child.length > 0 && (
-        <div className="flex flex-col items-center mt-20 relative">
-          {/* Children container with Figma Jam style connections */}
-          <div className="flex gap-24 justify-center relative min-w-max">
-            {/* Figma Jam style curved connections */}
-            <motion.svg 
-              className="absolute pointer-events-none z-0"
-              style={{ 
-                left: '50%',
-                top: '-80px',
-                transform: 'translateX(-50%)',
-                width: `${Math.max(300, node.child.length * 96)}px`,
-                height: '120px'
-              }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <defs>
-                {/* Elegant gradient for connections */}
-                <linearGradient id={`figma-gradient-${nodeId}`} x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor="#6366f1" stopOpacity="0.8" />
-                  <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.6" />
-                  <stop offset="100%" stopColor="#a855f7" stopOpacity="0.4" />
-                </linearGradient>
-                
-                {/* Subtle shadow effect */}
-                <filter id={`figma-shadow-${nodeId}`} x="-50%" y="-50%" width="200%" height="200%">
-                  <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#6366f1" floodOpacity="0.2"/>
-                </filter>
-              </defs>
-              
-              {/* Individual curved connections for each child */}
-              {node.child.map((_, index) => {
-                const totalChildren = node.child.length;
-                const centerX = Math.max(150, totalChildren * 48);
-                const childX = centerX - ((totalChildren - 1) * 48) + (index * 96);
-                
-                // Figma Jam style curved path
-                const startX = centerX;
-                const startY = 80;
-                const endX = childX;
-                const endY = 120;
-                
-                // Control points for smooth bezier curve
-                const controlY = startY + 30;
-                
-                return (
-                  <motion.path
-                    key={index}
-                    d={`M ${startX} ${startY} 
-                        C ${startX} ${controlY}, 
-                          ${endX} ${controlY}, 
-                          ${endX} ${endY}`}
-                    stroke={`url(#figma-gradient-${nodeId})`}
-                    strokeWidth="2"
-                    fill="none"
-                    strokeLinecap="round"
-                    filter={`url(#figma-shadow-${nodeId})`}
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    animate={{ pathLength: 1, opacity: 1 }}
-                    transition={{ 
-                      duration: 0.8, 
-                      delay: 0.3 + (index * 0.1),
-                      ease: "easeOut"
-                    }}
-                  />
-                );
-              })}
-              
-              {/* Parent connection point */}
-              <motion.circle
-                cx={Math.max(150, node.child.length * 48)}
-                cy="80"
-                r="3"
-                fill="#6366f1"
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ 
-                  duration: 0.4, 
-                  delay: 0.2,
-                  type: "spring",
-                  stiffness: 300
-                }}
-              />
-              
-              {/* Child connection points */}
-              {node.child.map((_, index) => {
-                const totalChildren = node.child.length;
-                const centerX = Math.max(150, totalChildren * 48);
-                const childX = centerX - ((totalChildren - 1) * 48) + (index * 96);
-                
-                return (
-                  <motion.circle
-                    key={index}
-                    cx={childX}
-                    cy="120"
-                    r="2.5"
-                    fill="#a855f7"
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ 
-                      duration: 0.4, 
-                      delay: 0.5 + (index * 0.1),
-                      type: "spring",
-                      stiffness: 300
-                    }}
-                  />
-                );
-              })}
-            </motion.svg>
-
-            {/* Children nodes */}
-            {node.child.map((child, index) => (
-              <motion.div
-                key={child.id}
-                initial={{ opacity: 0, y: 50, scale: 0.8 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ 
-                  delay: 0.6 + (index * 0.1), 
-                  type: "spring", 
-                  stiffness: 200, 
-                  damping: 20 
-                }}
-                className="relative z-10"
-              >
-                <NodeCard nodeId={child.id} node={child} />
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      )}
+             {/* CHILDREN */}
+       {node.child.length > 0 && (
+         <div className="flex flex-col items-center mt-16 relative">
+           {/* Simple children container */}
+           <div className="flex gap-20 justify-center relative min-w-max">
+             {/* Children nodes */}
+             {node.child.map((child, index) => (
+               <motion.div
+                 key={child.id}
+                 initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                 animate={{ opacity: 1, y: 0, scale: 1 }}
+                 transition={{ 
+                   delay: 0.1 + (index * 0.1), 
+                   type: "spring", 
+                   stiffness: 300, 
+                   damping: 25 
+                 }}
+                 className="relative"
+               >
+                 <NodeCard nodeId={child.id} node={child} />
+               </motion.div>
+             ))}
+           </div>
+         </div>
+       )}
     </div>
   );
 }

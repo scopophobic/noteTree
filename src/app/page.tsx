@@ -123,7 +123,7 @@ export default function Home() {
       <ProjectManager />
 
       {/* Navigation Controls */}
-      {focusedNodeId && (
+        {focusedNodeId && (
         <div className="absolute top-4 left-96 z-20 bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-lg border">
           <button
             className="flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium transition-colors"
@@ -172,7 +172,7 @@ export default function Home() {
         >
           <div className="p-20">
             {nodeToRender && (
-              <NodeCard nodeId={nodeToRender.id} node={nodeToRender} />
+        <NodeCard nodeId={nodeToRender.id} node={nodeToRender} />
             )}
           </div>
         </div>
