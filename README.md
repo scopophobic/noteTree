@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TreeNote
+
+A modern tree-based note-taking platform for organizing your thoughts and projects in a hierarchical structure.
+
+## What is TreeNote?
+
+TreeNote allows you to create and manage notes in a tree format where each note can have unlimited child notes. Perfect for project planning, research organization, and structured thinking.
+
+### Key Features
+
+- Project-based organization with multiple workspaces
+- Hierarchical note structure with unlimited depth
+- Full markdown support with live preview
+- Drag and drop repositioning
+- Global search across all notes
+- Infinite canvas with pan and zoom
+- Clean, distraction-free interface
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/treenote.git
+cd treenote
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run the development server
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## Learn More
+### Building for Production
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+npm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Create projects to organize different areas of work
+- Add child notes using the "+ Child" button
+- Click any content area to edit with markdown
+- Use Ctrl/Cmd + K to search across all notes
+- Drag nodes to reposition them on the canvas
+- Alt + drag to pan, Ctrl/Cmd + scroll to zoom
 
-## Deploy on Vercel
+## Tech Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Next.js 15
+- React 19
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- Zustand
+- React Markdown
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contributing
+
+We welcome contributions! Here's how to get started:
+
+### Development Setup
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature-name`
+3. Make your changes
+4. Run tests: `npm test`
+5. Commit your changes: `git commit -m "Add feature"`
+6. Push to your branch: `git push origin feature-name`
+7. Open a pull request
+
+### Guidelines
+
+- Follow the existing code style
+- Write clear commit messages
+- Add tests for new features
+- Update documentation as needed
+- Keep changes focused and atomic
+
+### Issues
+
+Found a bug or have a feature request? Please open an issue on GitHub with:
+
+- Clear description of the problem or feature
+- Steps to reproduce (for bugs)
+- Expected vs actual behavior
+- Screenshots if applicable
+
+## License
+
+MIT License - see LICENSE file for details.
+
+## Support
+
+For questions or support, please open an issue on GitHub.
