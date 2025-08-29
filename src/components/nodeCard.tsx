@@ -52,7 +52,7 @@ export default function NodeCard({ node, nodeId }: Props) {
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm"
           >
-            <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-4xl h-[80vh] relative border border-gray-100">
+                         <div className="bg-white p-8 rounded-lg shadow-lg w-[95%] max-w-6xl h-[90vh] relative border border-gray-100">
               {/* Header with mode toggle */}
               <div className="mb-6 flex items-center justify-between">
                 <h2 className="text-xl font-medium text-gray-800">
@@ -94,8 +94,8 @@ export default function NodeCard({ node, nodeId }: Props) {
                 />
               </div>
 
-              {/* Content area with split view */}
-              <div className="mb-6 flex-1 h-[calc(80vh-250px)] flex gap-4">
+                             {/* Content area with split view */}
+               <div className="mb-8 flex-1 h-[calc(90vh-280px)] flex gap-6">
                 {/* Editor */}
                 <div className={`${isPreviewMode ? 'w-1/2' : 'w-full'} flex flex-col`}>
                   <div className="flex items-center justify-between mb-2">
@@ -278,15 +278,15 @@ console.log('Hello world');
         </div>
       </motion.div>
 
-             {/* CHILDREN */}
-       {node.child.length > 0 && (
+      {/* CHILDREN */}
+      {node.child.length > 0 && (
          <div className="flex flex-col items-center mt-16 relative">
            {/* Simple children container */}
            <div className="flex gap-20 justify-center relative min-w-max">
              {/* Children nodes */}
              {node.child.map((child, index) => (
                <motion.div
-                 key={child.id}
+                key={child.id}
                  initial={{ opacity: 0, y: 30, scale: 0.9 }}
                  animate={{ opacity: 1, y: 0, scale: 1 }}
                  transition={{ 
@@ -297,12 +297,12 @@ console.log('Hello world');
                  }}
                  className="relative"
                >
-                 <NodeCard nodeId={child.id} node={child} />
+                <NodeCard nodeId={child.id} node={child} />
                </motion.div>
-             ))}
-           </div>
-         </div>
-       )}
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

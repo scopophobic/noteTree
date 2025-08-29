@@ -73,20 +73,24 @@ function createDefaultProject(name: string, description: string = ""): Project {
       title: `🚀 ${name}`,
       content: `# ${name}
 
-${description ? description + '\n\n' : ''}Welcome to your project! This is the root node of your project tree.
+${description ? `${description}\n\n` : ''}Welcome to your project! This is the root node where you can organize your thoughts in a tree structure.
 
-## Getting Started
+## Quick Start
+- Click **"+ Child"** to add new notes
+- Click content areas to edit with markdown
+- Use **Ctrl/Cmd + K** to search
+- Drag nodes to reposition them
 
-- Click **"+ Child"** to add new notes to this project
-- Click on any note content to edit with full markdown support
-- Use the focus button (🔍) to zoom into specific sections
-- Organize your thoughts in a hierarchical tree structure
+## Suggested Structure
+Create child notes for:
+- **📝 Planning** - Goals and requirements
+- **💡 Ideas** - Brainstorming and concepts  
+- **📚 Research** - References and notes
+- **✅ Tasks** - To-dos and progress
 
-## Project Structure
+> **Tip**: Keep each node focused on one topic and use children for details.
 
-Use this space to outline your project structure, goals, and key information.
-
-> **Tip**: Create child notes for different aspects of your project like tasks, ideas, resources, etc.`,
+Click **"+ Child"** below to get started! 🌳`,
       child: [],
     },
   };
