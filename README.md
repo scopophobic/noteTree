@@ -83,22 +83,9 @@ We welcome contributions! Here's how to get started:
 6. Push to your branch: `git push origin feature-name`
 7. Open a pull request
 
-### Guidelines
 
-- Follow the existing code style
-- Write clear commit messages
-- Add tests for new features
-- Update documentation as needed
-- Keep changes focused and atomic
 
-### Issues
 
-Found a bug or have a feature request? Please open an issue on GitHub with:
-
-- Clear description of the problem or feature
-- Steps to reproduce (for bugs)
-- Expected vs actual behavior
-- Screenshots if applicable
 
 ## License
 
