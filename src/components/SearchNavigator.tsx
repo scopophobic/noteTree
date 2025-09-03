@@ -63,26 +63,26 @@ export default function SearchNavigator() {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed top-4 left-1/2 transform -translate-x-1/2 z-20 bg-white/90 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg border text-sm text-gray-600 hover:text-gray-900 transition-colors flex items-center gap-2"
+        className="fixed top-4 left-1/2 transform -translate-x-1/2 z-20 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg border border-gray-200 dark:border-gray-700 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 transition-colors flex items-center gap-2"
       >
         <span>🔍</span>
         <span>Search notes</span>
-        <kbd className="px-1 py-0.5 bg-gray-200 rounded text-xs">Ctrl+K</kbd>
+        <kbd className="px-1 py-0.5 bg-gray-200 dark:bg-gray-600 dark:text-gray-200 rounded text-xs">Ctrl+K</kbd>
       </button>
     );
   }
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 backdrop-blur-sm">
-      <div className="bg-white rounded-lg shadow-xl border w-full max-w-2xl mx-4">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 w-full max-w-2xl mx-4">
         {/* Search Input */}
-        <div className="p-4 border-b">
+        <div className="p-4 border-b border-gray-200 dark:border-gray-700">
           <input
             type="text"
             placeholder="Search notes by title or content..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full text-lg p-3 border border-gray-200 rounded-md outline-none focus:border-blue-400 transition-colors"
+            className="w-full text-lg p-3 border border-gray-200 dark:border-gray-600 rounded-md outline-none focus:border-blue-400 dark:focus:border-blue-500 transition-colors bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
             autoFocus
           />
         </div>

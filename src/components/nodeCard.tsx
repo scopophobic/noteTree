@@ -52,18 +52,18 @@ export default function NodeCard({ node, nodeId }: Props) {
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm"
           >
-                         <div className="bg-white p-8 rounded-lg shadow-lg w-[95%] max-w-6xl h-[90vh] relative border border-gray-100">
+                         <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-[95%] max-w-6xl h-[90vh] relative border border-gray-100 dark:border-gray-700">
               {/* Header with mode toggle */}
               <div className="mb-6 flex items-center justify-between">
-                <h2 className="text-xl font-medium text-gray-800">
+                <h2 className="text-xl font-medium text-gray-800 dark:text-gray-200">
                   Editing: {node.title}
                 </h2>
-                <div className="flex items-center gap-2 bg-gray-100 rounded-lg p-1">
+                <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
                   <button
                     className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
                       !isPreviewMode 
-                        ? 'bg-white text-gray-900 shadow-sm' 
-                        : 'text-gray-600 hover:text-gray-900'
+                        ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100 shadow-sm' 
+                        : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100'
                     }`}
                     onClick={() => setIsPreviewMode(false)}
                   >
@@ -72,8 +72,8 @@ export default function NodeCard({ node, nodeId }: Props) {
                   <button
                     className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
                       isPreviewMode 
-                        ? 'bg-white text-gray-900 shadow-sm' 
-                        : 'text-gray-600 hover:text-gray-900'
+                        ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100 shadow-sm' 
+                        : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100'
                     }`}
                     onClick={() => setIsPreviewMode(true)}
                   >
@@ -85,7 +85,7 @@ export default function NodeCard({ node, nodeId }: Props) {
               {/* Title input */}
               <div className="mb-6">
                 <input
-                  className="w-full text-lg font-medium p-3 border border-gray-200 rounded-md outline-none focus:border-blue-400 transition-colors"
+                  className="w-full text-lg font-medium p-3 border border-gray-200 dark:border-gray-600 rounded-md outline-none focus:border-blue-400 dark:focus:border-blue-500 transition-colors bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                   value={node.title}
                   onChange={(e) =>
                     updateNode(nodeId, { title: e.target.value })
@@ -99,16 +99,16 @@ export default function NodeCard({ node, nodeId }: Props) {
                 {/* Editor */}
                 <div className={`${isPreviewMode ? 'w-1/2' : 'w-full'} flex flex-col`}>
                   <div className="flex items-center justify-between mb-2">
-                    <label className="text-sm font-medium text-gray-700">
+                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
                       Markdown Content
                     </label>
-                    <div className="text-xs text-gray-500">
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
                       Supports GitHub Flavored Markdown
                     </div>
                   </div>
                 <textarea
                     ref={textareaRef}
-                    className="w-full h-full p-4 border border-gray-200 rounded-md resize-none outline-none focus:border-blue-400 transition-colors text-gray-700 font-mono text-sm leading-relaxed"
+                    className="w-full h-full p-4 border border-gray-200 dark:border-gray-600 rounded-md resize-none outline-none focus:border-blue-400 dark:focus:border-blue-500 transition-colors text-gray-700 dark:text-gray-300 font-mono text-sm leading-relaxed bg-white dark:bg-gray-700"
                   value={node.content}
                   onChange={(e) =>
                     updateNode(nodeId, { content: e.target.value })
@@ -135,39 +135,39 @@ console.log('Hello world');
                 />
               </div>
 
-                {/* Preview */}
-                {isPreviewMode && (
-                  <div className="w-1/2 flex flex-col">
-                    <div className="flex items-center justify-between mb-2">
-                      <label className="text-sm font-medium text-gray-700">
-                        Preview
-                      </label>
-                    </div>
-                    <div className="flex-1 p-4 border border-gray-200 rounded-md bg-gray-50 overflow-auto">
-                      <div className="prose prose-sm max-w-none">
-                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                          {node.content || "*Empty content - start typing in the editor to see the preview*"}
-                        </ReactMarkdown>
-                      </div>
-                    </div>
-                  </div>
-                )}
+                                 {/* Preview */}
+                 {isPreviewMode && (
+                   <div className="w-1/2 flex flex-col">
+                     <div className="flex items-center justify-between mb-2">
+                       <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                         Preview
+                       </label>
+                     </div>
+                     <div className="flex-1 p-4 border border-gray-200 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 overflow-auto">
+                       <div className="prose prose-sm max-w-none dark:prose-invert">
+                         <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                           {node.content || "*Empty content - start typing in the editor to see the preview*"}
+                         </ReactMarkdown>
+                       </div>
+                     </div>
+                   </div>
+                 )}
               </div>
 
               {/* Action buttons */}
               <div className="flex justify-between items-center">
-                <div className="text-xs text-gray-500">
-                  Press <kbd className="px-1 py-0.5 bg-gray-200 rounded">Esc</kbd> to close
+                <div className="text-xs text-gray-500 dark:text-gray-400">
+                  Press <kbd className="px-1 py-0.5 bg-gray-200 dark:bg-gray-600 dark:text-gray-200 rounded">Esc</kbd> to close
                 </div>
                 <div className="flex gap-2">
                   <button
-                    className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
+                    className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
                     onClick={() => setEditingNodeId(null)}
                   >
                     Cancel
                   </button>
                 <button
-                    className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                    className="px-6 py-2 bg-blue-600 dark:bg-blue-600 text-white rounded-md hover:bg-blue-700 dark:hover:bg-blue-700 transition-colors"
                   onClick={() => setEditingNodeId(null)}
                 >
                   Done
@@ -180,28 +180,28 @@ console.log('Hello world');
       </AnimatePresence>
 
       {/* Actual Node Box */}
-      <motion.div
-        drag
-        dragMomentum={false}
-        dragElastic={0.1}
-        dragConstraints={{ left: -500, right: 500, top: -300, bottom: 300 }}
-        className={`transition-all duration-300 flex flex-col items-start border-2 rounded-xl p-4 shadow-lg bg-white/95 backdrop-blur-sm hover:shadow-xl ${
-          focusedNodeId === nodeId 
-            ? "scale-110 z-20 border-blue-400 shadow-blue-200/50" 
-            : "scale-100 border-gray-200 hover:border-gray-300"
-        } max-w-sm w-fit cursor-move group`}
-        whileHover={{ scale: 1.02, zIndex: 15 }}
-        whileDrag={{ scale: 1.05, rotate: 2, zIndex: 30 }}
-        animate={{
-          boxShadow: focusedNodeId === nodeId 
-            ? "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" 
-            : "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
-        }}
-      >
+             <motion.div
+         drag
+         dragMomentum={false}
+         dragElastic={0.1}
+         dragConstraints={{ left: -500, right: 500, top: -300, bottom: 300 }}
+         className={`transition-all duration-300 flex flex-col items-start border-2 rounded-xl p-4 shadow-lg bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm hover:shadow-xl ${
+           focusedNodeId === nodeId 
+             ? "scale-110 z-20 border-blue-400 dark:border-blue-500 shadow-blue-200/50 dark:shadow-blue-900/50" 
+             : "scale-100 border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500"
+         } max-w-sm w-fit cursor-move group`}
+         whileHover={{ scale: 1.02, zIndex: 15 }}
+         whileDrag={{ scale: 1.05, rotate: 2, zIndex: 30 }}
+         animate={{
+           boxShadow: focusedNodeId === nodeId 
+             ? "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" 
+             : "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
+         }}
+       >
         {/* TITLE with focus button */}
         <div className="flex items-center justify-between w-full mb-2">
         <input
-            className="text-lg font-bold outline-none border-b border-transparent focus:border-blue-400 flex-1 min-w-0 truncate bg-transparent"
+            className="text-lg font-bold outline-none border-b border-transparent focus:border-blue-400 dark:focus:border-blue-500 flex-1 min-w-0 truncate bg-transparent text-gray-900 dark:text-gray-100"
           value={node.title}
           onChange={(e) => updateNode(nodeId, { title: e.target.value })}
             placeholder="Untitled Note"
@@ -209,7 +209,7 @@ console.log('Hello world');
           {node.child.length > 0 && (
           <button
               onClick={() => setFocusedNode(nodeId)}
-              className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-blue-600 hover:text-blue-800 p-1 rounded"
+              className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 p-1 rounded"
               title="Focus on this node"
           >
               🔍
@@ -219,30 +219,30 @@ console.log('Hello world');
 
         {/* CONTENT with better preview */}
         <div
-          className="w-full max-w-[280px] min-h-[80px] p-3 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg cursor-pointer hover:from-blue-50 hover:to-blue-100 transition-all duration-200 border border-gray-100"
+          className="w-full max-w-[280px] min-h-[80px] p-3 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-600 rounded-lg cursor-pointer hover:from-blue-50 hover:to-blue-100 dark:hover:from-blue-900 dark:hover:to-blue-800 transition-all duration-200 border border-gray-100 dark:border-gray-600"
             onClick={() => setEditingNodeId(nodeId)}
           >
-          <div className="prose prose-xs max-w-none text-gray-700">
+          <div className="prose prose-xs max-w-none text-gray-700 dark:text-gray-300">
             <ReactMarkdown 
               remarkPlugins={[remarkGfm]}
               components={{
                 // Limit rendering for compact view
-                h1: ({children}) => <div className="font-bold text-sm text-gray-900">{children}</div>,
-                h2: ({children}) => <div className="font-semibold text-sm text-gray-800">{children}</div>,
-                h3: ({children}) => <div className="font-medium text-sm text-gray-700">{children}</div>,
-                p: ({children}) => <div className="text-xs text-gray-600 mb-1">{children}</div>,
-                ul: ({children}) => <ul className="text-xs text-gray-600 ml-3 mb-1">{children}</ul>,
-                ol: ({children}) => <ol className="text-xs text-gray-600 ml-3 mb-1">{children}</ol>,
-                blockquote: ({children}) => <div className="border-l-2 border-gray-300 pl-2 text-xs italic text-gray-500">{children}</div>,
-                code: ({children}) => <code className="bg-gray-200 px-1 rounded text-xs font-mono">{children}</code>,
-                pre: ({children}) => <pre className="bg-gray-200 p-2 rounded text-xs overflow-hidden">{children}</pre>
+                h1: ({children}) => <div className="font-bold text-sm text-gray-900 dark:text-gray-100">{children}</div>,
+                h2: ({children}) => <div className="font-semibold text-sm text-gray-800 dark:text-gray-200">{children}</div>,
+                h3: ({children}) => <div className="font-medium text-sm text-gray-700 dark:text-gray-300">{children}</div>,
+                p: ({children}) => <div className="text-xs text-gray-600 dark:text-gray-400 mb-1">{children}</div>,
+                ul: ({children}) => <ul className="text-xs text-gray-600 dark:text-gray-400 ml-3 mb-1">{children}</ul>,
+                ol: ({children}) => <ol className="text-xs text-gray-600 dark:text-gray-400 ml-3 mb-1">{children}</ol>,
+                blockquote: ({children}) => <div className="border-l-2 border-gray-300 dark:border-gray-500 pl-2 text-xs italic text-gray-500 dark:text-gray-400">{children}</div>,
+                code: ({children}) => <code className="bg-gray-200 dark:bg-gray-600 px-1 rounded text-xs font-mono">{children}</code>,
+                pre: ({children}) => <pre className="bg-gray-200 dark:bg-gray-600 p-2 rounded text-xs overflow-hidden">{children}</pre>
               }}
             >
               {node.content?.slice(0, 200) + (node.content?.length > 200 ? "..." : "") || "*Click to add content...*"}
             </ReactMarkdown>
           </div>
           <div className="mt-2 text-right">
-            <span className="text-xs text-blue-600 opacity-70">Click to edit</span>
+            <span className="text-xs text-blue-600 dark:text-blue-400 opacity-70">Click to edit</span>
           </div>
         </div>
 
@@ -250,7 +250,7 @@ console.log('Hello world');
         <div className="mt-3 flex items-center justify-between w-full">
           <div className="flex gap-2">
             <button 
-              className="flex items-center gap-1 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full hover:bg-blue-200 transition-colors"
+              className="flex items-center gap-1 text-xs bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 px-2 py-1 rounded-full hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
               onClick={() => addChild(nodeId)}
             >
               <span>+</span>
@@ -258,7 +258,7 @@ console.log('Hello world');
           </button>
           {nodeId !== "root" && (
             <button
-                className="flex items-center gap-1 text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full hover:bg-red-200 transition-colors"
+                className="flex items-center gap-1 text-xs bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 px-2 py-1 rounded-full hover:bg-red-200 dark:hover:bg-red-800 transition-colors"
               onClick={() => {
                 if (confirm("Delete this node and its children?")) {
                   deleteNode(nodeId);
@@ -271,7 +271,7 @@ console.log('Hello world');
             )}
           </div>
           {node.child.length > 0 && (
-            <div className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+            <div className="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
               {node.child.length} child{node.child.length !== 1 ? 'ren' : ''}
             </div>
           )}

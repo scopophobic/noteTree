@@ -48,18 +48,18 @@ export default function ProjectManager() {
       <div className="fixed top-4 left-4 z-30">
         <button
           onClick={() => setIsOpen(true)}
-          className="bg-white/90 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg border text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors flex items-center gap-2"
+          className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors flex items-center gap-2"
         >
           <span>📁</span>
           <span>{currentProject?.name || "No Project"}</span>
-          <span className="text-xs text-gray-500">({projects.length})</span>
+          <span className="text-xs text-gray-500 dark:text-gray-400">({projects.length})</span>
         </button>
       </div>
     );
   }
 
   return (
-    <div className="fixed top-4 left-4 z-30 bg-white rounded-lg shadow-xl border w-80 max-h-96 flex flex-col">
+    <div className="fixed top-4 left-4 z-30 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 w-80 max-h-96 flex flex-col">
       {/* Header */}
       <div className="p-4 border-b flex items-center justify-between">
         <h3 className="font-semibold text-gray-900">Projects</h3>
