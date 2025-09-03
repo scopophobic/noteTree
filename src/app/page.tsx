@@ -91,24 +91,24 @@ export default function Home() {
   }
 
   return (
-    <main className="h-screen w-screen overflow-hidden bg-gradient-to-br from-slate-50 to-blue-50 dark:from-dark-bg dark:to-dark-bg-secondary relative">
+    <main className="h-screen w-screen overflow-hidden bg-gradient-to-br from-slate-50 to-blue-50 dark:from-dark-bg dark:via-dark-bg-secondary dark:to-dark-surface relative">
       {/* Top Right Controls */}
       <div className="absolute top-4 right-4 z-30 flex items-center gap-2">
         {/* Compact Zoom Controls */}
-        <div className="flex items-center gap-0.5 bg-white/90 dark:bg-dark-surface/90 backdrop-blur-sm rounded-md px-2 py-1 shadow-md border border-gray-200 dark:border-dark-border">
+        <div className="flex items-center gap-0.5 bg-white/95 dark:bg-dark-surface/95 backdrop-blur-sm rounded-lg px-2 py-1.5 shadow-lg border border-gray-200 dark:border-dark-border">
           <button
             onClick={() => setZoom(prev => Math.max(prev - 0.1, 0.1))}
-            className="w-5 h-5 flex items-center justify-center text-xs font-bold text-gray-700 dark:text-dark-text hover:bg-gray-100 dark:hover:bg-dark-surface-hover rounded transition-colors"
+            className="w-5 h-5 flex items-center justify-center text-xs font-bold text-gray-700 dark:text-dark-text hover:bg-gray-100 dark:hover:bg-dark-surface-hover hover:text-blue-600 dark:hover:text-dark-accent rounded transition-all"
             title="Zoom Out"
           >
             −
           </button>
-          <div className="text-xs text-gray-600 dark:text-dark-text-secondary px-1 min-w-8 text-center font-mono">
+          <div className="text-xs text-gray-600 dark:text-dark-text-secondary px-1.5 min-w-10 text-center font-mono font-medium">
             {Math.round(zoom * 100)}%
           </div>
           <button
             onClick={() => setZoom(prev => Math.min(prev + 0.1, 3))}
-            className="w-5 h-5 flex items-center justify-center text-xs font-bold text-gray-700 dark:text-dark-text hover:bg-gray-100 dark:hover:bg-dark-surface-hover rounded transition-colors"
+            className="w-5 h-5 flex items-center justify-center text-xs font-bold text-gray-700 dark:text-dark-text hover:bg-gray-100 dark:hover:bg-dark-surface-hover hover:text-blue-600 dark:hover:text-dark-accent rounded transition-all"
             title="Zoom In"
           >
             +
@@ -118,7 +118,7 @@ export default function Home() {
               setZoom(1);
               setPanOffset({ x: 0, y: 0 });
             }}
-            className="w-5 h-5 flex items-center justify-center text-xs text-gray-700 dark:text-dark-text hover:bg-gray-100 dark:hover:bg-dark-surface-hover rounded transition-colors ml-0.5"
+            className="w-5 h-5 flex items-center justify-center text-xs text-gray-700 dark:text-dark-text hover:bg-gray-100 dark:hover:bg-dark-surface-hover hover:text-blue-600 dark:hover:text-dark-accent rounded transition-all ml-1"
             title="Reset"
           >
             ↺
@@ -149,18 +149,18 @@ export default function Home() {
       <SearchNavigator />
 
       {/* Project Title */}
-      <div className="absolute bottom-4 right-4 z-20 bg-white/90 dark:bg-dark-surface/90 backdrop-blur-sm rounded-lg p-3 shadow-lg border border-gray-200 dark:border-dark-border">
-        <div className="text-sm font-medium text-gray-800 dark:text-dark-text">{currentProject.name}</div>
+      <div className="absolute bottom-4 right-4 z-20 bg-white/95 dark:bg-dark-surface/95 backdrop-blur-sm rounded-xl p-4 shadow-xl border border-gray-200 dark:border-dark-border">
+        <div className="text-sm font-semibold text-gray-800 dark:text-dark-text">{currentProject.name}</div>
         {currentProject.description && (
-          <div className="text-xs text-gray-600 dark:text-dark-text-secondary mt-1 max-w-xs">{currentProject.description}</div>
+          <div className="text-xs text-gray-600 dark:text-dark-text-muted mt-1.5 max-w-xs leading-relaxed">{currentProject.description}</div>
         )}
       </div>
 
       {/* Instructions */}
-      <div className="absolute bottom-4 left-4 z-20 bg-white/90 dark:bg-dark-surface/90 backdrop-blur-sm rounded-lg p-3 shadow-lg border border-gray-200 dark:border-dark-border text-sm text-gray-600 dark:text-dark-text-secondary">
-        <div>• Hold <kbd className="px-1 py-0.5 bg-gray-200 dark:bg-dark-surface-hover dark:text-dark-text rounded text-xs">Alt</kbd> + drag to pan</div>
-        <div>• <kbd className="px-1 py-0.5 bg-gray-200 dark:bg-dark-surface-hover dark:text-dark-text rounded text-xs">Ctrl/Cmd</kbd> + scroll to zoom</div>
-        <div>• <kbd className="px-1 py-0.5 bg-gray-200 dark:bg-dark-surface-hover dark:text-dark-text rounded text-xs">Ctrl/Cmd + K</kbd> to search</div>
+      <div className="absolute bottom-4 left-4 z-20 bg-white/95 dark:bg-dark-surface/95 backdrop-blur-sm rounded-xl p-4 shadow-xl border border-gray-200 dark:border-dark-border text-sm text-gray-600 dark:text-dark-text-secondary">
+        <div className="flex items-center gap-2">• Hold <kbd className="px-2 py-1 bg-gray-200 dark:bg-dark-surface-active dark:text-dark-text rounded font-mono text-xs font-medium">Alt</kbd> + drag to pan</div>
+        <div className="flex items-center gap-2 mt-1">• <kbd className="px-2 py-1 bg-gray-200 dark:bg-dark-surface-active dark:text-dark-text rounded font-mono text-xs font-medium">Ctrl/Cmd</kbd> + scroll to zoom</div>
+        <div className="flex items-center gap-2 mt-1">• <kbd className="px-2 py-1 bg-gray-200 dark:bg-dark-surface-active dark:text-dark-text rounded font-mono text-xs font-medium">Ctrl/Cmd + K</kbd> to search</div>
       </div>
 
       {/* Infinite Canvas */}

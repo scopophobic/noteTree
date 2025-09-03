@@ -11,16 +11,21 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Custom dark mode with greenish tones
+        // Enhanced dark mode with beautiful greenish tones
         dark: {
-          bg: '#0f1419',        // Very dark with slight green tint
-          'bg-secondary': '#1a2332', // Slightly lighter dark with green
-          surface: '#1e2832',    // Surface color with green undertone
-          'surface-hover': '#252e3a', // Hover state
-          border: '#2a3441',     // Border color
-          text: '#e6f2ff',       // Light text with slight blue-green
-          'text-secondary': '#b8d4e3', // Secondary text
-          'text-muted': '#8a9ba8', // Muted text
+          bg: '#0d1117',        // Rich dark base (GitHub-inspired)
+          'bg-secondary': '#161b22', // Slightly lighter background
+          surface: '#21262d',    // Card/surface background
+          'surface-hover': '#30363d', // Hover states
+          'surface-active': '#373e47', // Active/pressed states
+          border: '#30363d',     // Subtle borders
+          'border-hover': '#444c56', // Hover borders
+          text: '#f0f6fc',       // Primary text (high contrast)
+          'text-secondary': '#7d8590', // Secondary text
+          'text-muted': '#656d76', // Muted text
+          accent: '#238636',     // Green accent color
+          'accent-hover': '#2ea043', // Hover green
+          'accent-muted': '#1a7f37', // Muted green
         },
       },
     },

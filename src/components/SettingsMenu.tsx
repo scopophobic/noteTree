@@ -14,11 +14,11 @@ export default function SettingsMenu() {
       {/* Settings Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border border-gray-200 dark:border-gray-700 shadow-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+        className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/95 dark:bg-dark-surface/95 backdrop-blur-sm border border-gray-200 dark:border-dark-border shadow-lg hover:bg-gray-50 dark:hover:bg-dark-surface-hover hover:shadow-xl transition-all duration-200"
         title="Settings"
       >
         <svg
-          className="w-4 h-4 text-gray-600 dark:text-gray-400"
+          className="w-4 h-4 text-gray-600 dark:text-dark-text-secondary"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -54,16 +54,16 @@ export default function SettingsMenu() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: -10 }}
               transition={{ duration: 0.15 }}
-              className="absolute right-0 top-12 z-50 bg-white dark:bg-dark-surface rounded-lg shadow-xl border border-gray-200 dark:border-dark-border py-2 min-w-48"
+              className="absolute right-0 top-12 z-50 bg-white dark:bg-dark-surface rounded-xl shadow-2xl border border-gray-200 dark:border-dark-border py-3 min-w-52"
             >
               {/* Theme Setting */}
-              <div className="px-4 py-3 border-b border-gray-100 dark:border-dark-border">
+              <div className="px-5 py-3 border-b border-gray-100 dark:border-dark-border">
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="text-sm font-medium text-gray-900 dark:text-dark-text">
+                    <div className="text-sm font-semibold text-gray-900 dark:text-dark-text">
                       Appearance
                     </div>
-                    <div className="text-xs text-gray-500 dark:text-dark-text-muted mt-0.5">
+                    <div className="text-xs text-gray-500 dark:text-dark-text-secondary mt-1">
                       {theme === "dark" ? "Dark mode" : "Light mode"}
                     </div>
                   </div>
@@ -72,8 +72,8 @@ export default function SettingsMenu() {
               </div>
 
               {/* Future Settings */}
-              <div className="px-4 py-3">
-                <div className="text-xs text-gray-400 dark:text-dark-text-muted italic">
+              <div className="px-5 py-3">
+                <div className="text-xs text-gray-400 dark:text-dark-text-muted italic opacity-75">
                   More settings coming soon...
                 </div>
               </div>
